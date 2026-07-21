@@ -16,6 +16,7 @@
     background-image:radial-gradient(900px 500px at 80% -10%,rgba(110,168,254,.10),transparent 60%);}
   .wrap{max-width:920px;margin:0 auto;padding:38px 20px 64px}
   a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .logo{height:46px;width:auto;filter:invert(1);opacity:.95;display:block;margin-bottom:18px}
   .eyebrow{color:var(--ok);font:600 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}
   h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:.35em 0 .2em;text-wrap:balance;letter-spacing:-.02em}
   .lede{color:var(--dim);font-size:clamp(15px,2.4vw,18px);max-width:64ch}
@@ -49,6 +50,7 @@
 </head>
 <body>
 <div class="wrap">
+  <img class="logo" src="viewer/logo.png" alt="plankton" width="61" height="46">
   <p class="eyebrow">plankton · nekton — a live federation</p>
   <h1>Four independent Claude sessions, one verifiable result.</h1>
   <p class="lede">Four separate GitHub repositories — sharing <em>nothing</em> but signed, content-addressed
