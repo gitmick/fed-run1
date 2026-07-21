@@ -1,1 +1,126 @@
-<!doctype html><meta charset=utf-8><title>plankton federation</title><meta http-equiv="refresh" content="0; url=viewer/viewer.html?union=../mirror/union.json"><p><a href="viewer/viewer.html?union=../mirror/union.json">open the federated viewer</a></p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A live kton federation</title>
+<style>
+  :root{
+    --bg:#0b0f18; --panel:#131a26; --line:#26303f; --ink:#e8ebf2; --dim:#8b97a8;
+    --accent:#6ea8fe; --ok:#12b886; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background-image:radial-gradient(900px 500px at 80% -10%,rgba(110,168,254,.10),transparent 60%);}
+  .wrap{max-width:920px;margin:0 auto;padding:38px 20px 64px}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .eyebrow{color:var(--ok);font:600 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+  h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:.35em 0 .2em;text-wrap:balance;letter-spacing:-.02em}
+  .lede{color:var(--dim);font-size:clamp(15px,2.4vw,18px);max-width:64ch}
+  .cta{display:inline-flex;align-items:center;gap:9px;margin-top:22px;background:var(--accent);color:#08111f;
+    font-weight:650;padding:12px 20px;border-radius:11px;font-size:15px}
+  .cta:hover{text-decoration:none;filter:brightness(1.06)}
+  .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .ctas{display:flex;gap:10px;flex-wrap:wrap}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:34px 0 8px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 12px;text-align:center}
+  .stat b{display:block;font-size:clamp(22px,5vw,30px);font-variant-numeric:tabular-nums;line-height:1}
+  .stat .repro{color:var(--ok)} .stat span{color:var(--dim);font-size:11.5px;letter-spacing:.03em}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 8px;letter-spacing:-.01em}
+  h2 .n{color:var(--ok);font:600 12px var(--mono);margin-right:8px;vertical-align:2px}
+  p.sub{color:var(--dim);margin:.2em 0 14px;max-width:68ch}
+  .steps{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:13px}
+  .steps .s{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
+  .steps .ar{color:var(--dim)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 15px;color:var(--ink)}
+  .card:hover{border-color:var(--accent);text-decoration:none;transform:translateY(-1px);transition:.12s}
+  .card .k{font:600 12px var(--mono);color:var(--ok);letter-spacing:.03em}
+  .card .t{font-weight:600;margin-top:3px}
+  .card .d{color:var(--dim);font-size:13px;margin-top:3px}
+  .who{color:var(--ok)}
+  code{font-family:var(--mono);font-size:.92em;background:#0c1420;border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+  @media (max-width:560px){ .stats{grid-template-columns:repeat(2,1fr)} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">plankton · nekton — a live federation</p>
+  <h1>Four independent Claude sessions, one verifiable result.</h1>
+  <p class="lede">Four separate GitHub repositories — sharing <em>nothing</em> but signed, content-addressed
+  records — each reproduced the same small data pipeline over the Palmer&nbsp;Penguins dataset. This neutral
+  aggregator mirrors them, <b>re-verifies every signature</b>, and shows each result's <b class="who">↻N</b>:
+  how many independent signers produced those exact bytes. It federates and verifies — it never vouches.</p>
+
+  <div class="ctas">
+    <a class="cta" href="viewer/viewer.html?union=../mirror/union.json">Open the federated graph →</a>
+    <a class="cta ghost" href="https://github.com/gitmick/fed-run1">This aggregator on GitHub</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>4</b><span>independent repos</span></div>
+    <div class="stat"><b>4</b><span>pipeline steps</span></div>
+    <div class="stat"><b class="repro">↻4</b><span>on every step</span></div>
+    <div class="stat"><b>0</b><span>unverified records</span></div>
+  </div>
+
+  <section>
+    <h2><span class="n">01</span>What happened</h2>
+    <p class="sub">Each participant ran a fresh, cold Claude session with only a <code>CLAUDE.md</code> brief and
+    the two kton CLIs. Independently — no messaging between them — each wrote deterministic scripts, produced
+    byte-identical outputs, signed a <b>foton</b> per step, committed the bytes with commit-pinned permalinks,
+    and pushed. The aggregator polls each repo, fetches only what's new, verifies every Ed25519 signature, and
+    aggregates by content hash. Because four independent runs produced the same bytes, every step lands at ↻4.</p>
+    <div class="steps">
+      <span class="s">penguins.csv</span><span class="ar">→</span>
+      <span class="s">clean</span><span class="ar">→</span>
+      <span class="s">standardise</span><span class="ar">→</span>
+      <span class="s">cluster</span><span class="ar">→</span>
+      <span class="s">summarise</span>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">02</span>The participants</h2>
+    <p class="sub">Four repos, each its own registry and signing identity. The aggregator attests each key to
+    its repo principal (a signed <code>sec:controller</code> binding), so the viewer shows a real, accountable
+    identity — not a self-asserted label.</p>
+    <div class="grid">
+      <a class="card" href="https://github.com/gitmick/participant-alice"><div class="k">participant</div><div class="t">alice</div><div class="d">the full pipeline, from scratch</div></a>
+      <a class="card" href="https://github.com/gitmick/participant-bob"><div class="k">participant</div><div class="t">bob</div><div class="d">independently reproduced it</div></a>
+      <a class="card" href="https://github.com/gitmick/participant-carol"><div class="k">participant</div><div class="t">carol</div><div class="d">independently reproduced it</div></a>
+      <a class="card" href="https://github.com/gitmick/participant-dave"><div class="k">participant</div><div class="t">dave</div><div class="d">a cold session that joined later</div></a>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">03</span>Run your own — two fork-and-go templates</h2>
+    <p class="sub">Everything here is reproducible from two template repositories. Fork the participant template
+    to join a federation; fork the aggregator template to host one.</p>
+    <div class="grid">
+      <a class="card" href="https://github.com/gitmick/plankton-participant-template"><div class="k">template</div><div class="t">plankton-participant-template</div><div class="d">run the pipeline, sign it, publish, register. Binaries included.</div></a>
+      <a class="card" href="https://github.com/gitmick/plankton-federation-template"><div class="k">template</div><div class="t">plankton-federation-template</div><div class="d">a neutral aggregator: mirror + verify participants, serve this view.</div></a>
+    </div>
+    <p class="sub" style="margin-top:14px">Step-by-step to reproduce this exact run with fresh forks:
+      <a href="https://github.com/gitmick/plankton-federation-template/blob/main/REPRODUCE.md">REPRODUCE.md →</a></p>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span>What "verified" means here</h2>
+    <p class="sub">Every record is content-addressed and signed. The viewer re-checks each Ed25519/DSSE signature
+    <em>in your browser</em> against the published keys, and each foton carries a commit-pinned
+    <code>raw.githubusercontent.com/…/&lt;sha&gt;/…</code> permalink — so you can fetch the exact input/output
+    bytes and confirm they re-hash to the recorded value. Nothing asks you to trust the aggregator, or us.</p>
+  </section>
+
+  <footer>
+    Built on <b>plankton</b> (computations) + <b>nekton</b> (signed claims) — a content-addressed,
+    coordinator-free federation. No server, no consensus. · <a href="viewer/viewer.html?union=../mirror/union.json">Open the graph</a>
+  </footer>
+</div>
+</body>
+</html>
