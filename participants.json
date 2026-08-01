@@ -6,7 +6,7 @@
     "interval_minutes": 15,
     "active": true,
     "last_commit": "95a0078ed8097f9817c94aa80a597b4835b3700e",
-    "last_run": "2026-08-01T07:08:34.454566+00:00"
+    "last_run": "2026-08-01T09:17:23.780731+00:00"
   },
   {
     "name": "bob",
@@ -15,7 +15,7 @@
     "interval_minutes": 15,
     "active": true,
     "last_commit": "d021a4847778924b46e5a405d81423ab0484d2e9",
-    "last_run": "2026-08-01T07:08:34.776191+00:00"
+    "last_run": "2026-08-01T09:17:23.993162+00:00"
   },
   {
     "name": "carol",
@@ -24,7 +24,7 @@
     "interval_minutes": 15,
     "active": true,
     "last_commit": "0f3aa6cf38e7440497420e51ea53d289e4eb0e8e",
-    "last_run": "2026-08-01T07:08:35.146973+00:00"
+    "last_run": "2026-08-01T09:17:24.228366+00:00"
   },
   {
     "name": "dave",
@@ -33,6 +33,6 @@
     "interval_minutes": 15,
     "active": true,
     "last_commit": "148c4b1cae016e4c30b7bde5ebac92dd555e30a9",
-    "last_run": "2026-08-01T07:08:35.434767+00:00"
+    "last_run": "2026-08-01T09:17:24.467066+00:00"
   }
 ]
